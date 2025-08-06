@@ -9,6 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  go_router: ^16.1.0
+  intl: ^0.20.2
+  provider: ^6.1.5
 
 dev_dependencies:
   flutter_test:
