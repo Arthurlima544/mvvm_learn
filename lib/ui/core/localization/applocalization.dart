@@ -6,12 +6,26 @@ class AppLocalization {
     return Localizations.of(context, AppLocalization);
   }
 
-  static const _strings = <String, String>{'activities': 'Activities'};
+  static const _strings = <String, String>{
+    'activities': 'Activities',
+    'bookNewTrip': 'Book New Trip',
+    'errorWhileLoadingbooking': 'Error while loading booking',
+    'errorWhileLoadingHome': 'Error while loading Home',
+    'tryAgain': 'Try Again',
+  };
 
   static String _get(String label) =>
       _strings[label] ?? '[${label.toUpperCase()}]';
 
   String get activities => _get('activities');
+
+  String get bookNewTrip => _get('bookNewTrip');
+
+  String get tryAgain => _get('tryAgain');
+
+  String get errorWhileLoadingbooking => _get('errorWhileLoadingbooking');
+
+  String get errorWhileLoadingHome => _get('errorWhileLoadingHome');
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalization> {
