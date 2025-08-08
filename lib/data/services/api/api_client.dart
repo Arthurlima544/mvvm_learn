@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:mvvm_learn/data/services/api/model/booking/booking_api_model.dart';
+import 'package:mvvm_learn/data/services/api/model/user/user_api_model.dart';
 import 'package:mvvm_learn/domain/models/activity/activity.dart';
 import 'package:mvvm_learn/utils/result.dart';
 
@@ -119,6 +120,27 @@ class ApiClient {
         return Result.ok(bookings);
       } else {
         return Result.error(HttpException("Invalid response"));
+      }
+    } on Exception catch (e) {
+      return Result.error(e);
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<Result<UserApiModel>> getUser() async {
+    final client = _clientFactory();
+
+    try {
+      final request = await client.get(_host, _port, '/user');
+      await _authHeader(request.headers);
+      final response = await request.close();
+      if (response.statusCode == 200) {
+        final stringData = await response.transform(utf8.decoder).join();
+        final user = UserApiModel.fromJson(jsonDecode(stringData));
+        return Result.ok(user);
+      } else {
+        return const Result.error(HttpException("Invalid Response"));
       }
     } on Exception catch (e) {
       return Result.error(e);
