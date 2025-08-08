@@ -3,10 +3,11 @@ import 'package:mvvm_learn/routing/router.dart';
 import 'package:mvvm_learn/ui/core/localization/applocalization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mvvm_learn/ui/core/themes/theme.dart';
+import 'package:mvvm_learn/main_development.dart' as development;
 // import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  development.main();
 }
 
 class MainApp extends StatelessWidget {
@@ -24,7 +25,7 @@ class MainApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      routerConfig: router(), // context.read()
+      routerConfig: router(),
       //scrollBehavior
     );
   }
