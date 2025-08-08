@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           listenable: widget.viewModel.load,
           builder: (context, child) {
             if (widget.viewModel.load.running) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (widget.viewModel.load.error) {
@@ -120,6 +120,7 @@ class HomeHeader extends StatelessWidget {
         radius: 2,
       ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
       child: Text(
+        //Todo: Implement viewModel.userName when Auth() feature is done
         "Arthur",
         style: GoogleFonts.rubik(
           textStyle: Theme.of(context).textTheme.headlineLarge,

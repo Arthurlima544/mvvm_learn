@@ -23,7 +23,7 @@ class BookingRepositoryRemote implements BookingRepository {
             .map((activity) => activity.ref)
             .toList(),
       );
-      return _apiClient.postBooking(bookingApiModel);
+      return await _apiClient.postBooking(bookingApiModel);
     } on Exception catch (e) {
       return Result.error(e);
     }

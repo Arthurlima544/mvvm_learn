@@ -54,6 +54,8 @@ class BookingViewModel extends ChangeNotifier {
         notifyListeners();
         return Result.error(error);
     }
-    return Result.error(Exception());
+    return Result.error(
+      Exception("Unknown error occurred while creating booking"),
+    );
   }
 }

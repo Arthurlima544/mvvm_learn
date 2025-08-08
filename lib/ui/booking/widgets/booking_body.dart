@@ -18,7 +18,7 @@ class BookingBody extends StatelessWidget {
       listenable: viewModel,
       builder: (context, _) {
         final booking = viewModel.booking;
-        if (booking == null) return Center(child: const Text("No Booking yet"));
+        if (booking == null) return const Center(child: Text("No Booking yet"));
         return CustomScrollView(
           slivers: [
             SliverToBoxAdapter(child: BookingHeader(booking: booking)),

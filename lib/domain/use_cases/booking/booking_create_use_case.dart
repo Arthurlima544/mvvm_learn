@@ -27,7 +27,7 @@ class BookingCreateUseCase {
   Future<Result<Booking>> createFrom(ItineraryConfig itineraryConfig) async {
     if (itineraryConfig.destination == null) {
       _log.warning('Destination is not set');
-      return Result.error(Exception('Destiantion is not set'));
+      return Result.error(Exception('Destination is not set'));
     }
     final destinationResult = await _fetchDestination(
       itineraryConfig.destination!,
