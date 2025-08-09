@@ -1,16 +1,22 @@
+import 'package:mvvm_learn/data/repositories/auth/auth_repository_remote.dart';
 import 'package:mvvm_learn/data/repositories/booking/booking_repository_remote.dart';
 import 'package:mvvm_learn/data/repositories/destination/destination_repository.dart';
 import 'package:mvvm_learn/data/repositories/destination/destination_repository_remote.dart';
 import 'package:mvvm_learn/data/repositories/itinerary_config/itinerary_config_repository_memory.dart';
+import 'package:mvvm_learn/data/repositories/user/user_repository_remote.dart';
 import 'package:mvvm_learn/data/services/api/api_client.dart';
+import 'package:mvvm_learn/data/services/api/auth_api_client.dart';
+import 'package:mvvm_learn/data/services/secure_storage_service.dart';
 import 'package:mvvm_learn/domain/use_cases/booking/booking_create_use_case.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import '../data/repositories/activity/activity_repository.dart';
 import '../data/repositories/activity/activity_repository_remote.dart';
+import '../data/repositories/auth/auth_repository.dart';
 import '../data/repositories/booking/booking_repository.dart';
 import '../data/repositories/itinerary_config/itinerary_config_repository.dart';
+import '../data/repositories/user/user_repository.dart';
 
 List<SingleChildWidget> _sharedProviders = [
   Provider(
@@ -26,6 +32,18 @@ List<SingleChildWidget> _sharedProviders = [
 List<SingleChildWidget> get providersLocal {
   return [
     Provider(create: (context) => ApiClient()),
+    Provider(create: (context) => AuthApiClient()),
+    Provider(create: (context) => SecureStorageService()),
+
+    ChangeNotifierProvider(
+      create: (context) =>
+          AuthRepositoryRemote(
+                apiClient: context.read<ApiClient>(),
+                authApiClient: context.read<AuthApiClient>(),
+                secureStorageService: context.read<SecureStorageService>(),
+              )
+              as AuthRepository,
+    ),
 
     Provider(
       create: (context) =>
@@ -45,6 +63,10 @@ List<SingleChildWidget> get providersLocal {
       create: (context) =>
           BookingRepositoryRemote(apiClient: context.read<ApiClient>())
               as BookingRepository,
+    ),
+    Provider(
+      create: (context) =>
+          UserRepositoryRemote(apiClient: context.read()) as UserRepository,
     ),
     ..._sharedProviders,
   ];

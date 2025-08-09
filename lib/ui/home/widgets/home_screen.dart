@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mvvm_learn/domain/models/booking/booking_summary.dart';
+import 'package:mvvm_learn/ui/auth/logout/view_models/logout_viewmodel.dart';
 import 'package:mvvm_learn/ui/core/localization/applocalization.dart';
 import 'package:mvvm_learn/ui/core/themes/colors.dart';
 import 'package:mvvm_learn/ui/core/ui/error_indicator.dart';
 import 'package:mvvm_learn/ui/home/viewmodel/home_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 import '../../../routing/routes.dart';
+import '../../auth/logout/widgets/logout_button.dart';
 import '../../core/themes/dimens.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -112,6 +115,49 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = viewModel.user;
+
+    if (user == null) {
+      return const SizedBox();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipOval(
+              child: Image.asset(
+                user.picture,
+                width: Dimens.of(context).profilePictureSize,
+                height: Dimens.of(context).profilePictureSize,
+              ),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => LogoutViewModel(
+                authRepository: context.read(),
+                itineraryConfigRepository: context.read(),
+              ),
+              child: LogoutButton(),
+            ),
+          ],
+        ),
+        const SizedBox(height: Dimens.paddingVertical),
+        _Title(text: AppLocalization.of(context).nameTrips(user.name)),
+      ],
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
     return ShaderMask(
       blendMode: BlendMode.srcIn,
       shaderCallback: (bounds) => RadialGradient(
@@ -120,8 +166,7 @@ class HomeHeader extends StatelessWidget {
         radius: 2,
       ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
       child: Text(
-        //Todo: Implement viewModel.userName when Auth() feature is done
-        "Arthur",
+        text,
         style: GoogleFonts.rubik(
           textStyle: Theme.of(context).textTheme.headlineLarge,
         ),

@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mvvm_learn/data/services/api/model/booking/booking_api_model.dart';
+import 'package:mvvm_learn/data/services/api/model/user/user_api_model.dart';
 import 'package:mvvm_learn/domain/models/activity/activity.dart';
 import 'package:mvvm_learn/utils/result.dart';
 
@@ -10,9 +12,9 @@ import '../../../domain/models/destination/destination.dart';
 typedef AuthHeaderProvider = String? Function();
 
 class ApiClient {
-  ApiClient({String? host, int? port, HttpClient Function()? clientFactory})
-    : _host = host ?? 'localhost',
-      _port = port ?? 8080,
+  ApiClient({HttpClient Function()? clientFactory})
+    : _host = dotenv.env['API_HOST'] ?? 'localhost',
+      _port = int.tryParse(dotenv.env['API_PORT'] ?? '8080') ?? 8080,
       _clientFactory = clientFactory ?? HttpClient.new;
 
   final String _host;
@@ -119,6 +121,27 @@ class ApiClient {
         return Result.ok(bookings);
       } else {
         return Result.error(HttpException("Invalid response"));
+      }
+    } on Exception catch (e) {
+      return Result.error(e);
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<Result<UserApiModel>> getUser() async {
+    final client = _clientFactory();
+
+    try {
+      final request = await client.get(_host, _port, '/user');
+      await _authHeader(request.headers);
+      final response = await request.close();
+      if (response.statusCode == 200) {
+        final stringData = await response.transform(utf8.decoder).join();
+        final user = UserApiModel.fromJson(jsonDecode(stringData));
+        return Result.ok(user);
+      } else {
+        return const Result.error(HttpException("Invalid Response"));
       }
     } on Exception catch (e) {
       return Result.error(e);

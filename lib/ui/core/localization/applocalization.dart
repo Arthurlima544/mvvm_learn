@@ -11,7 +11,11 @@ class AppLocalization {
     'bookNewTrip': 'Book New Trip',
     'errorWhileLoadingbooking': 'Error while loading booking',
     'errorWhileLoadingHome': 'Error while loading Home',
+    'errorWhileLogin': 'Error while Login',
+    'login': 'Login',
     'tryAgain': 'Try Again',
+    'errorWhileLogout': 'Error while Logout',
+    'nameTrips': '{name}\'s Trips',
   };
 
   static String _get(String label) =>
@@ -26,6 +30,14 @@ class AppLocalization {
   String get errorWhileLoadingbooking => _get('errorWhileLoadingbooking');
 
   String get errorWhileLoadingHome => _get('errorWhileLoadingHome');
+
+  String get errorWhileLogin => _get('errorWhileLogin');
+
+  String get login => _get('login');
+
+  String get errorWhileLogout => _get('errorWhileLogout');
+
+  String nameTrips(String name) => _get('nameTrips').replaceAll('{name}', name);
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalization> {
