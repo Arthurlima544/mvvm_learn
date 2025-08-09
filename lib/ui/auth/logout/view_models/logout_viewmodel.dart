@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mvvm_learn/data/repositories/auth/auth_repository.dart';
 import 'package:mvvm_learn/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:mvvm_learn/domain/models/itinerary_config/itinerary_config.dart';
@@ -5,7 +6,7 @@ import 'package:mvvm_learn/domain/models/itinerary_config/itinerary_config.dart'
 import '../../../../utils/command.dart';
 import '../../../../utils/result.dart';
 
-class LogoutViewModel {
+class LogoutViewModel with ChangeNotifier {
   LogoutViewModel({
     required AuthRepository authRepository,
     required ItineraryConfigRepository itineraryConfigRepository,

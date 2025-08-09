@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mvvm_learn/data/repositories/auth/auth_repository.dart';
 import 'package:mvvm_learn/routing/routes.dart';

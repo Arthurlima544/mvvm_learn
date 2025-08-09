@@ -135,12 +135,12 @@ class HomeHeader extends StatelessWidget {
                 height: Dimens.of(context).profilePictureSize,
               ),
             ),
-            //TODO: make sense this been instanciate here?
-            LogoutButton(
-              viewModel: LogoutViewModel(
+            ChangeNotifierProvider(
+              create: (_) => LogoutViewModel(
                 authRepository: context.read(),
                 itineraryConfigRepository: context.read(),
               ),
+              child: LogoutButton(),
             ),
           ],
         ),

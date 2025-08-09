@@ -54,7 +54,7 @@ class HomeViewModel extends ChangeNotifier {
         case Error<User>(:final error):
           _log.warning('Failed to load user', error);
       }
-      return userResult;
+      return result;
     } finally {
       notifyListeners();
     }

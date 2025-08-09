@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:mvvm_learn/data/repositories/auth/auth_repository.dart';
 import 'package:mvvm_learn/utils/command.dart';
 import 'package:mvvm_learn/utils/result.dart';
 
-class LoginViewModel {
+class LoginViewModel with ChangeNotifier {
   LoginViewModel({required AuthRepository authRepository})
     : _authRepository = authRepository {
     login = Command1<void, (String email, String password)>(_login);

@@ -65,7 +65,7 @@ class AuthRepositoryRemote extends AuthRepository {
 
   @override
   Future<Result<void>> logout() async {
-    _log.info('User looged out');
+    _log.info('User logged out');
 
     try {
       final result = await _secureStorageService.saveToken(null);
