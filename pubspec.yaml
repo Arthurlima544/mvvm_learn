@@ -10,6 +10,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.2.1
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: ^9.2.4
@@ -37,3 +38,4 @@ flutter:
     - assets/destinations.json
     - assets/logo.svg
     - assets/user.jpg
+    - .env

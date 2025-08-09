@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mvvm_learn/data/services/api/model/booking/booking_api_model.dart';
 import 'package:mvvm_learn/data/services/api/model/user/user_api_model.dart';
 import 'package:mvvm_learn/domain/models/activity/activity.dart';
@@ -11,9 +12,9 @@ import '../../../domain/models/destination/destination.dart';
 typedef AuthHeaderProvider = String? Function();
 
 class ApiClient {
-  ApiClient({String? host, int? port, HttpClient Function()? clientFactory})
-    : _host = host ?? 'localhost',
-      _port = port ?? 8080,
+  ApiClient({HttpClient Function()? clientFactory})
+    : _host = dotenv.env['API_HOST'] ?? 'localhost',
+      _port = int.tryParse(dotenv.env['API_PORT'] ?? '8080') ?? 8080,
       _clientFactory = clientFactory ?? HttpClient.new;
 
   final String _host;

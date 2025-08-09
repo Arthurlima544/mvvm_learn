@@ -31,10 +31,8 @@ List<SingleChildWidget> _sharedProviders = [
 
 List<SingleChildWidget> get providersLocal {
   return [
-    Provider(create: (context) => ApiClient(host: '192.168.25.12', port: 8080)),
-    Provider(
-      create: (context) => AuthApiClient(host: '192.168.25.12', port: 8080),
-    ),
+    Provider(create: (context) => ApiClient()),
+    Provider(create: (context) => AuthApiClient()),
     Provider(create: (context) => SecureStorageService()),
 
     ChangeNotifierProvider(

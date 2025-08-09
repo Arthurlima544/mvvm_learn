@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mvvm_learn/utils/result.dart';
 
 import 'model/login_request/login_request.dart';
 import 'model/login_response/login_response.dart';
 
 class AuthApiClient {
-  AuthApiClient({String? host, int? port, HttpClient Function()? clientFactory})
-    : _host = host ?? 'localhost',
-      _port = port ?? 8080,
+  AuthApiClient({HttpClient Function()? clientFactory})
+    : _host = dotenv.env['API_HOST'] ?? 'localhost',
+      _port = int.tryParse(dotenv.env['API_PORT'] ?? '8080') ?? 8080,
       _clientFactory = clientFactory ?? HttpClient.new;
 
   final String _host;

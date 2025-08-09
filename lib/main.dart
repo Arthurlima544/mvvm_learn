@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mvvm_learn/data/repositories/auth/auth_repository.dart';
 import 'package:mvvm_learn/routing/router.dart';
 import 'package:mvvm_learn/ui/core/localization/applocalization.dart';
@@ -8,7 +9,9 @@ import 'package:mvvm_learn/main_development.dart' as development;
 import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
+
   development.main();
 }
 
