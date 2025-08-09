@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:mvvm_learn/main.dart';
@@ -9,6 +11,12 @@ import 'config/dependencies.dart';
 void main() {
   hierarchicalLoggingEnabled = true;
   Logger.root.level = Level.ALL;
+
+  Logger.root.onRecord.listen((record) {
+    print(
+      '${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}',
+    );
+  });
 
   runApp(MultiProvider(providers: providersLocal, child: const MainApp()));
 }

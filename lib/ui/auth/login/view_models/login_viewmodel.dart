@@ -3,8 +3,8 @@ import 'package:mvvm_learn/data/repositories/auth/auth_repository.dart';
 import 'package:mvvm_learn/utils/command.dart';
 import 'package:mvvm_learn/utils/result.dart';
 
-class LoginViewmodel {
-  LoginViewmodel({required AuthRepository authRepository})
+class LoginViewModel {
+  LoginViewModel({required AuthRepository authRepository})
     : _authRepository = authRepository {
     login = Command1<void, (String email, String password)>(_login);
   }

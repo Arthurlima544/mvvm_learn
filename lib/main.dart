@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm_learn/data/repositories/auth/auth_repository.dart';
 import 'package:mvvm_learn/routing/router.dart';
 import 'package:mvvm_learn/ui/core/localization/applocalization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mvvm_learn/ui/core/themes/theme.dart';
 import 'package:mvvm_learn/main_development.dart' as development;
+import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
 void main() {
@@ -25,8 +27,7 @@ class MainApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      routerConfig: router(),
-      //scrollBehavior
+      routerConfig: router(context.read<AuthRepository>()),
     );
   }
 }
